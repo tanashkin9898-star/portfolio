@@ -1,0 +1,45 @@
+/* ---------- Floating glossy objects ---------- */
+.objects { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+.obj {
+  position: absolute;
+  width: var(--w, 150px);
+  will-change: transform;
+  transition: transform 0.5s var(--ease);
+}
+.obj svg {
+  width: 100%; height: auto; display: block;
+  filter: drop-shadow(0 22px 44px rgba(0,0,0,0.5)) drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+  will-change: transform;
+  animation: floaty var(--dur, 8s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes floaty {
+  0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+  50% { transform: translateY(var(--lift, -18px)) rotate(calc(var(--rot, 0deg) + var(--spin, 3deg))); }
+}
+
+/* positions (desktop) */
+.obj--headphones { left: 9%;  bottom: 16%; --w: 165px; --rot: -10deg; --dur: 9s;  --lift: -22px; }
+.obj--sparkle    { left: 27%; bottom: 24%; --w: 120px; --rot: 4deg;   --dur: 7s;  --delay: -1s; --lift: -16px; }
+.obj--rainbow    { left: 43%; bottom: 13%; --w: 185px; --rot: -3deg;  --dur: 10s; --delay: -2s; --lift: -20px; }
+.obj--chat       { right: 24%; bottom: 11%; --w: 250px; --rot: -7deg; --dur: 8.5s; --delay: -1.5s; --lift: -14px; }
+.obj--controller { right: 6%;  bottom: 20%; --w: 175px; --rot: 9deg;  --dur: 9.5s; --delay: -0.5s; --lift: -22px; }
+.obj--heart      { left: 16%;  top: 24%;   --w: 78px;  --rot: -6deg;  --dur: 6.5s; --delay: -2s; --lift: -14px; opacity: 0.96; }
+.obj--play       { right: 17%; top: 21%;   --w: 86px;  --rot: 8deg;   --dur: 7.5s; --delay: -1s; --lift: -16px; }
+
+@media (max-width: 1080px) {
+  .obj--heart, .obj--play { display: none; }
+  .obj--chat { --w: 210px; right: 18%; }
+}
+@media (max-width: 760px) {
+  .obj { --w: 110px !important; }
+  .obj--chat { display: none; }
+  .obj--headphones { left: 2%; bottom: 8%; }
+  .obj--sparkle { left: 24%; bottom: 30%; --w: 84px !important; }
+  .obj--rainbow { left: 38%; bottom: 6%; --w: 130px !important; }
+  .obj--controller { right: 2%; bottom: 12%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .obj { animation: none !important; }
+}

@@ -1,0 +1,8 @@
+# internal notes — not for the public repo
+HANDOFF.md
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp

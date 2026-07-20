@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oleksandr Tanashkin — Product Designer · CV</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --ink: #16161a;
+      --gray: #6f6f76;
+      --faint: #9a9aa1;
+      --blue: #2f6fed;
+      --line: #e8e8ea;
+    }
+    html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: #f3f3f1;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    .sheet {
+      width: 794px; min-height: 1123px; margin: 32px auto; background: #fff;
+      padding: 56px 60px; box-shadow: 0 30px 60px -30px rgba(0,0,0,0.25);
+    }
+
+    /* header */
+    .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+    .name { font-size: 32px; font-weight: 700; letter-spacing: -0.01em; display: flex; align-items: center; gap: 12px; }
+    .name svg { width: 29px; height: 29px; flex: none; }
+    .role { font-size: 19px; color: var(--gray); margin-top: 2px; font-weight: 400; }
+    .chips { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+    .chip { background: var(--blue); color: #fff; font-size: 13px; padding: 5px 12px; border-radius: 6px; text-decoration: none; white-space: nowrap; }
+
+    /* width matches the left (experience) column so the text + divider stop at the first column's edge */
+    .summary { margin-top: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--line); font-size: 14.5px; color: #34343a; width: 57%; }
+
+    /* columns */
+    .cols { display: grid; grid-template-columns: 1.55fr 1fr; gap: 44px; margin-top: 18px; }
+
+    .sec + .sec { margin-top: 22px; }
+    .sec__h { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin-bottom: 16px; }
+
+    .item + .item { margin-top: 16px; }
+    .item__top { font-size: 14.5px; }
+    .item__top b { font-weight: 700; }
+    .item__meta { font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); margin: 3px 0 7px; }
+    .item__desc { font-size: 13px; color: #3a3a40; line-height: 1.5; }
+    .item__link { font-size: 12px; color: var(--blue); text-decoration: none; display: inline-block; margin-top: 5px; }
+
+    /* right column education / skills */
+    .edu + .edu { margin-top: 16px; }
+    .edu__t { font-size: 14px; font-weight: 700; }
+    .edu__s { font-size: 12.5px; color: #3a3a40; }
+    .edu__m { font-size: 10.5px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--faint); margin-top: 2px; }
+
+    .skill { font-size: 12.5px; color: #3a3a40; line-height: 1.55; }
+    .skill + .skill { margin-top: 10px; }
+    .skill b { color: var(--ink); font-weight: 700; }
+
+    .lang { display: flex; justify-content: space-between; font-size: 12.5px; padding: 4px 0; border-bottom: 1px solid var(--line); }
+    .lang span:last-child { color: var(--gray); }
+
+    @media print {
+      body { background: #fff; }
+      .sheet { width: auto; min-height: auto; margin: 0; box-shadow: none; padding: 32px 44px; }
+    }
+    @page { size: A4; margin: 0; }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <header class="head">
+      <div>
+        <div class="name">
+          Oleksandr Tanashkin
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Verified">
+            <path d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.68.88-3.34 2.19c-1.39-.46-2.9-.2-3.91.81s-1.27 2.52-.81 3.91c-1.31.66-2.19 1.91-2.19 3.34s.88 2.67 2.19 3.34c-.46 1.39-.2 2.9.81 3.91s2.52 1.27 3.91.81c.66 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.46 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34z" fill="#2f6fed"/>
+            <path d="M9.8 17.3l-4.2-4.1L7 11.8l2.8 2.7L17 7.4l1.4 1.4-8.6 8.5z" fill="#fff"/>
+          </svg>
+        </div>
+        <div class="role">Product Designer</div>
+      </div>
+      <div class="chips">
+        <a class="chip" href="https://oleksandrtanashkin.framer.website/">oleksandrtanashkin.framer.website</a>
+        <a class="chip" href="mailto:tanashkin9898@gmail.com">tanashkin9898@gmail.com</a>
+        <span class="chip">Wiesbaden, DE · Open to relocate</span>
+        <span class="chip">Canada · Open Work Permit</span>
+      </div>
+    </header>
+
+    <p class="summary">
+      Product Designer with 5 years improving engagement across B2C and B2B products
+      through data-driven UX and scalable design systems.
+    </p>
+
+    <div class="cols">
+      <!-- LEFT -->
+      <div>
+        <section class="sec">
+          <h2 class="sec__h">Experience</h2>
+
+          <div class="item">
+            <div class="item__top">Yalwa GmbH, <b>Product Designer</b></div>
+            <div class="item__meta">Dec 2023 – Present · Wiesbaden, Germany</div>
+            <p class="item__desc">
+              Lead hands-on designer for two major B2C products, owning core features
+              (Premium, Upselling, Live Streaming). Established a token-first design
+              system and led design strategy across product and engineering. Drove
+              WCAG 2.1 AA accessibility upgrades, raising Lighthouse accessibility from
+              80% to 96%.
+            </p>
+          </div>
+
+          <div class="item">
+            <div class="item__top">Shark Software, <b>UX/UI Designer</b></div>
+            <div class="item__meta">Sep 2021 – Sep 2023 · Kharkiv, Ukraine</div>
+            <p class="item__desc">
+              Led UX/UI for a social mobile app with AR from concept to MVP — owning IA,
+              core flows, and the visual system. Designed an MVP web-based SaaS
+              accounting platform and delivered branding assets across multiple client
+              projects.
+            </p>
+          </div>
+
+          <div class="item">
+            <div class="item__top">Digital Cloud Technologies, <b>Intern UX/UI Designer</b></div>
+            <div class="item__meta">Mar 2021 – Aug 2021 · Kharkiv, Ukraine</div>
+            <p class="item__desc">
+              Contributed to desktop applications built to Microsoft UWP standards and
+              supported the company’s Microsoft Store presence. Assisted senior
+              designers with prototyping and engineering collaboration.
+            </p>
+          </div>
+        </section>
+
+        <section class="sec">
+          <h2 class="sec__h">Selected Projects</h2>
+
+          <div class="item">
+            <div class="item__top"><b>Live Streaming</b></div>
+            <div class="item__meta">Feb 2024 – Jul 2024 · Consumer dating product</div>
+            <p class="item__desc">
+              Increased average livestream duration by +242%, grew livestream audience
+              by +43%, and daily messages by +300%.
+            </p>
+            <a class="item__link" href="https://www.figma.com/design/Cg0aqAcvnYEe1iUulpyynM/Live-streaming-in-Dating-App?node-id=6-8">View case →</a>
+          </div>
+
+          <div class="item">
+            <div class="item__top"><b>Design System for a Marketplace Platform</b></div>
+            <div class="item__meta">Jan 2025 – May 2025</div>
+            <p class="item__desc">
+              Built the design system end to end, resolving the disconnect between design
+              and development with semantic tokens and Figma as the single source of
+              truth.
+            </p>
+            <a class="item__link" href="https://www.figma.com/design/P3cMI0P7L46Zec6SlDhW82/Design-System-for-marketplace-platform?node-id=0-1">View case →</a>
+          </div>
+        </section>
+      </div>
+
+      <!-- RIGHT -->
+      <div>
+        <section class="sec">
+          <h2 class="sec__h">Education</h2>
+          <div class="edu">
+            <div class="edu__t">Coursera</div>
+            <div class="edu__s">Google UX Design Certificate</div>
+            <div class="edu__m">2023 · Remote</div>
+          </div>
+          <div class="edu">
+            <div class="edu__t">Beetroot Academy</div>
+            <div class="edu__s">UI/UX Design from Scratch</div>
+            <div class="edu__m">2020 · Sweden</div>
+          </div>
+          <div class="edu">
+            <div class="edu__t">Kharkiv National University, MA</div>
+            <div class="edu__s">International Relations</div>
+            <div class="edu__m">2020 · Kharkiv, Ukraine</div>
+          </div>
+        </section>
+
+        <section class="sec">
+          <h2 class="sec__h">Skills</h2>
+          <p class="skill"><b>UX</b> — IA, user flows, wireframes, visual design, interactive prototypes, responsive patterns, accessibility specs (WCAG 2.1)</p>
+          <p class="skill"><b>Research &amp; Testing</b> — interviews, moderated/unmoderated usability testing, surveys, analytics, competitive analysis, design QA</p>
+          <p class="skill"><b>Design Systems</b> — semantic tokens, components, documentation, dev-ready specs and handoff</p>
+          <p class="skill"><b>Tools</b> — Figma, FigJam, Jira/Confluence, Adobe CC, AI prototyping; branding, motion basics, HTML/CSS</p>
+        </section>
+
+        <section class="sec">
+          <h2 class="sec__h">Languages</h2>
+          <div class="lang"><span>English</span><span>Fluent</span></div>
+          <div class="lang"><span>German</span><span>Basic</span></div>
+          <div class="lang"><span>Ukrainian</span><span>Native</span></div>
+          <div class="lang"><span>Russian</span><span>Native</span></div>
+        </section>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
