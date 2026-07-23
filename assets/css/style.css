@@ -58,6 +58,25 @@ em { font-style: italic; }
 /* ---------- Home: intro ---------- */
 .home { max-width: var(--max); margin: 0 auto; padding: clamp(128px, 17vw, 188px) 32px 0; }
 .badge { width: 46px; height: 46px; display: block; margin-bottom: 28px; animation: rise 0.8s var(--ease) both; filter: drop-shadow(0 5px 14px rgba(29,155,240,0.38)); }
+
+/* easter egg: the verified badge becomes a koala on hover.
+   On load it peeks out from behind the badge once, so the interaction is discoverable. */
+.badge-swap { position: relative; display: block; width: 46px; height: 46px; margin-bottom: 28px; animation: rise 0.8s var(--ease) both; cursor: pointer; }
+.badge-swap .badge { position: absolute; inset: 0; margin: 0; animation: none; transition: opacity 0.3s var(--ease), transform 0.45s var(--ease); }
+.badge--check { z-index: 2; }
+.badge--koala { z-index: 1; opacity: 0; transform: scale(0.8) rotate(-14deg); filter: drop-shadow(0 5px 14px rgba(199,163,255,0.36)); }
+.badge-swap .badge--koala { animation: koala-peek 2.5s var(--ease) 1.15s 1; }
+@keyframes koala-peek {
+  0%   { opacity: 0; transform: translateY(34%) scale(0.86) rotate(0deg); }
+  16%  { opacity: 1; transform: translateY(-44%) scale(1) rotate(-7deg); }
+  40%  { opacity: 1; transform: translateY(-40%) scale(1) rotate(5deg); }
+  66%  { opacity: 1; transform: translateY(-44%) scale(1) rotate(0deg); }
+  100% { opacity: 0; transform: translateY(34%) scale(0.86) rotate(0deg); }
+}
+.badge-swap:hover .badge--check,
+.badge-swap.is-koala .badge--check { opacity: 0; transform: scale(0.8) rotate(14deg); }
+.badge-swap:hover .badge--koala,
+.badge-swap.is-koala .badge--koala { opacity: 1; transform: scale(1) rotate(0deg); }
 .intro__title {
   font-family: var(--serif); font-weight: 500;
   font-size: clamp(31px, 5vw, 58px); line-height: 1.08; letter-spacing: -0.02em;

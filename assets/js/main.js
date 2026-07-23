@@ -59,12 +59,25 @@
     }
   }
 
+  /* ---------- Koala badge: tap to reveal on touch devices (hover handles desktop) ---------- */
+  function koalaTap() {
+    var badge = document.querySelector('.badge-swap');
+    if (!badge) return;
+    var timer;
+    badge.addEventListener('click', function () {
+      badge.classList.add('is-koala');
+      clearTimeout(timer);
+      timer = setTimeout(function () { badge.classList.remove('is-koala'); }, 1800);
+    });
+  }
+
   var fitTimer;
   function scheduleFit() { clearTimeout(fitTimer); fitTimer = setTimeout(fitGallery, 60); }
 
   document.addEventListener('DOMContentLoaded', function () {
     parallax();
     clock();
+    koalaTap();
     fitGallery();
     window.addEventListener('load', fitGallery);
     window.addEventListener('resize', scheduleFit);
