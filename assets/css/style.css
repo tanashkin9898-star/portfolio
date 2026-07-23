@@ -61,7 +61,7 @@ em { font-style: italic; }
 .intro__title {
   font-family: var(--serif); font-weight: 500;
   font-size: clamp(31px, 5vw, 58px); line-height: 1.08; letter-spacing: -0.02em;
-  max-width: 30ch;
+  max-width: 30ch; text-wrap: balance;
   animation: rise 0.85s var(--ease) 0.06s both;
 }
 .intro__title a { white-space: nowrap; background-image: linear-gradient(currentColor, currentColor); background-size: 100% 1px; background-position: 0 92%; background-repeat: no-repeat; transition: color 0.25s ease, opacity 0.25s ease; opacity: 0.95; }
@@ -237,6 +237,7 @@ em { font-style: italic; }
   .gallery { grid-template-columns: 1fr; }
   .me { grid-template-columns: 1fr; }
   .me__photo { height: auto; min-height: 0; aspect-ratio: 3/4; max-width: 260px; }
+  .intro__br { display: none; }
   .xp__item { grid-template-columns: 1fr; gap: 8px; }
   .xp__when { flex-direction: row; gap: 12px; padding-top: 0; }
 }
