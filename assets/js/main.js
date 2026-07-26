@@ -59,16 +59,18 @@
     }
   }
 
-  /* ---------- Koala badge: tap to reveal on touch devices (hover handles desktop) ---------- */
-  function koalaTap() {
+  /* ---------- Koala badge: flashes once on load, then reveals on hover or tap ---------- */
+  function koala() {
     var badge = document.querySelector('.badge-swap');
     if (!badge) return;
     var timer;
-    badge.addEventListener('click', function () {
+    function show(ms) {
       badge.classList.add('is-koala');
       clearTimeout(timer);
-      timer = setTimeout(function () { badge.classList.remove('is-koala'); }, 1800);
-    });
+      timer = setTimeout(function () { badge.classList.remove('is-koala'); }, ms);
+    }
+    badge.addEventListener('click', function () { show(1800); });
+    if (!reduce) setTimeout(function () { if (!badge.matches(':hover')) show(1100); }, 1300);
   }
 
   var fitTimer;
@@ -77,7 +79,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     parallax();
     clock();
-    koalaTap();
+    koala();
     fitGallery();
     window.addEventListener('load', fitGallery);
     window.addEventListener('resize', scheduleFit);
