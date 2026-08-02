@@ -59,18 +59,17 @@ em { font-style: italic; }
 .home { max-width: var(--max); margin: 0 auto; padding: clamp(128px, 17vw, 188px) 32px 0; }
 .badge { width: 46px; height: 46px; display: block; margin-bottom: 28px; animation: rise 0.8s var(--ease) both; filter: drop-shadow(0 5px 14px rgba(29,155,240,0.38)); }
 
-/* easter egg: the verified badge becomes a koala on hover.
-   On load it peeks out from behind the badge once, so the interaction is discoverable. */
+/* easter egg: the verified badge morphs into the Canadian maple leaf on hover/tap.
+   Keeps the blue + white tick; only the silhouette changes. */
 .badge-swap { position: relative; display: block; width: 46px; height: 46px; margin-bottom: 28px; animation: rise 0.8s var(--ease) both; cursor: pointer; }
 .badge-swap .badge { position: absolute; inset: 0; margin: 0; animation: none; transition: opacity 0.3s var(--ease), transform 0.45s var(--ease); }
 .badge--check { z-index: 2; }
-.badge-peek { position: absolute; inset: 0; z-index: 1; }
-.badge--koala { opacity: 0; transform: scale(0.8) rotate(-14deg); filter: drop-shadow(0 5px 14px rgba(199,163,255,0.36)); }
-/* revealed on hover, on tap, and once on load so the interaction is discoverable */
+.badge--leaf { z-index: 1; opacity: 0; transform: scale(0.72) rotate(-18deg); filter: drop-shadow(0 5px 14px rgba(29,155,240,0.38)); }
+/* revealed on hover and on tap (hover/tap only — no auto-reveal on load) */
 .badge-swap:hover .badge--check,
-.badge-swap.is-koala .badge--check { opacity: 0; transform: scale(0.8) rotate(14deg); }
-.badge-swap:hover .badge--koala,
-.badge-swap.is-koala .badge--koala { opacity: 1; transform: scale(1) rotate(0deg); }
+.badge-swap.is-alt .badge--check { opacity: 0; transform: scale(0.72) rotate(18deg); }
+.badge-swap:hover .badge--leaf,
+.badge-swap.is-alt .badge--leaf { opacity: 1; transform: scale(1) rotate(0deg); }
 .intro__title {
   font-family: var(--serif); font-weight: 500;
   font-size: clamp(31px, 5vw, 58px); line-height: 1.08; letter-spacing: -0.02em;
@@ -85,6 +84,26 @@ em { font-style: italic; }
   animation: rise 0.85s var(--ease) 0.14s both;
 }
 .intro__sub strong { color: var(--ink); font-weight: 600; }
+
+/* headline: line-by-line mask reveal — each line slides up from behind its own mask */
+.intro__title.reveal-lines { animation: none; }
+.has-js .intro__title.reveal-lines { visibility: hidden; }
+.intro__title.reveal-lines.built { visibility: visible; }
+.reveal-lines .ln { display: block; overflow: hidden; padding-bottom: 0.09em; margin-bottom: -0.09em; }
+.reveal-lines .ln-in {
+  display: block; transform: translateY(112%); will-change: transform;
+  transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-lines.is-in .ln-in { transform: translateY(0); }
+
+/* cursor spotlight — soft glow that follows the pointer behind the content */
+.spotlight {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  opacity: 0; transition: opacity 0.7s ease;
+  background: radial-gradient(560px circle at var(--mx, 50%) var(--my, 26%),
+    rgba(199,163,255,0.11), rgba(140,120,200,0.045) 32%, transparent 62%);
+}
+.spotlight.on { opacity: 1; }
 
 /* ---------- CTA buttons ---------- */
 .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; animation: rise 0.85s var(--ease) 0.2s both; }
@@ -105,6 +124,10 @@ em { font-style: italic; }
   transition: transform 0.5s var(--ease), border-color 0.45s ease, box-shadow 0.45s ease;
 }
 .gcard:hover .gthumb { transform: translateY(-5px); border-color: var(--line-2); box-shadow: 0 1px 0 rgba(255,255,255,0.06) inset, 0 40px 70px -32px rgba(0,0,0,0.8); }
+/* hover: gently zoom the whole mockup — frame/bezel + screenshot — inside the card */
+.pshot, .wshot { transition: transform 0.55s var(--ease), box-shadow 0.45s ease; }
+.gcard:hover .pshot { transform: translateX(-50%) scale(1.05); }
+.gcard:hover .wshot { transform: translateY(-50%) scale(1.05); }
 .gfoot { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-top: 16px; }
 .gtitle { display: block; font-family: var(--serif); font-weight: 500; font-size: clamp(18px, 2.1vw, 23px); letter-spacing: -0.01em; line-height: 1.05; }
 .gcat { display: block; color: var(--muted); font-size: 13.5px; margin-top: 5px; }

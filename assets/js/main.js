@@ -59,18 +59,101 @@
     }
   }
 
-  /* ---------- Koala badge: flashes once on load, then reveals on hover or tap ---------- */
-  function koala() {
+  /* ---------- Badge: verified check morphs to the Canadian maple leaf on hover/tap ---------- */
+  function badgeSwap() {
     var badge = document.querySelector('.badge-swap');
     if (!badge) return;
     var timer;
     function show(ms) {
-      badge.classList.add('is-koala');
+      badge.classList.add('is-alt');
       clearTimeout(timer);
-      timer = setTimeout(function () { badge.classList.remove('is-koala'); }, ms);
+      timer = setTimeout(function () { badge.classList.remove('is-alt'); }, ms);
     }
     badge.addEventListener('click', function () { show(1800); });
-    if (!reduce) setTimeout(function () { if (!badge.matches(':hover')) show(1100); }, 1300);
+  }
+
+  /* ---------- Headline: line-by-line mask reveal ---------- */
+  function revealLines() {
+    var h = document.querySelector('.intro__title.reveal-lines');
+    if (!h) return;
+    var full = (h.textContent || '').replace(/\s+/g, ' ').trim();
+    if (!full) return;
+
+    function build() {
+      // measure natural line breaks with temporary inline-block words
+      var words = full.split(' ');
+      h.textContent = '';
+      var els = words.map(function (w) {
+        var s = document.createElement('span');
+        s.style.display = 'inline-block';
+        s.textContent = w;
+        h.appendChild(s);
+        h.appendChild(document.createTextNode(' '));
+        return s;
+      });
+      var lines = [], cur = [], top = null;
+      els.forEach(function (el) {
+        var t = el.offsetTop;
+        if (top === null || Math.abs(t - top) > 3) { if (cur.length) lines.push(cur); cur = []; top = t; }
+        cur.push(el.firstChild.nodeValue);
+      });
+      if (cur.length) lines.push(cur);
+
+      // rebuild as masked lines
+      h.textContent = '';
+      lines.forEach(function (lw, i) {
+        var ln = document.createElement('span'); ln.className = 'ln';
+        var inr = document.createElement('span'); inr.className = 'ln-in';
+        inr.textContent = lw.join(' ');
+        inr.style.transitionDelay = (0.06 + i * 0.11) + 's';
+        ln.appendChild(inr);
+        h.appendChild(ln);
+      });
+      h.classList.add('built');
+    }
+
+    if (reduce) { h.textContent = full; h.classList.add('built'); return; }
+
+    try {
+      build();
+      requestAnimationFrame(function () { requestAnimationFrame(function () { h.classList.add('is-in'); }); });
+    } catch (e) {
+      h.textContent = full; h.classList.add('built', 'is-in');
+    }
+
+    // safety net: never leave the headline hidden
+    setTimeout(function () { h.classList.add('built', 'is-in'); }, 1600);
+
+    // re-line on resize (settle instantly, no re-animation)
+    var rz;
+    window.addEventListener('resize', function () {
+      clearTimeout(rz);
+      rz = setTimeout(function () {
+        h.classList.remove('is-in');
+        try { build(); } catch (e) { h.textContent = full; h.classList.add('built'); }
+        h.classList.add('is-in');
+      }, 180);
+    });
+  }
+
+  /* ---------- Cursor spotlight: soft glow follows the pointer ---------- */
+  function spotlight() {
+    if (reduce) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    var el = document.createElement('div');
+    el.className = 'spotlight';
+    document.body.appendChild(el);
+    var root = document.documentElement, raf = 0, x = 0, y = 0;
+    window.addEventListener('mousemove', function (e) {
+      x = e.clientX; y = e.clientY;
+      if (!el.classList.contains('on')) el.classList.add('on');
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        root.style.setProperty('--mx', x + 'px');
+        root.style.setProperty('--my', y + 'px');
+        raf = 0;
+      });
+    });
   }
 
   var fitTimer;
@@ -79,7 +162,15 @@
   document.addEventListener('DOMContentLoaded', function () {
     parallax();
     clock();
-    koala();
+    badgeSwap();
+    spotlight();
+    if (document.fonts && document.fonts.ready) {
+      var revealed = false, go = function () { if (!revealed) { revealed = true; revealLines(); } };
+      document.fonts.ready.then(go);
+      setTimeout(go, 350);
+    } else {
+      revealLines();
+    }
     fitGallery();
     window.addEventListener('load', fitGallery);
     window.addEventListener('resize', scheduleFit);
