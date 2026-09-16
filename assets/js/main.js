@@ -143,14 +143,14 @@
     var el = document.createElement('div');
     el.className = 'spotlight';
     document.body.appendChild(el);
-    var root = document.documentElement, raf = 0, x = 0, y = 0;
+    var raf = 0, x = 0, y = 0;
     window.addEventListener('mousemove', function (e) {
       x = e.clientX; y = e.clientY;
       if (!el.classList.contains('on')) el.classList.add('on');
       if (raf) return;
       raf = requestAnimationFrame(function () {
-        root.style.setProperty('--mx', x + 'px');
-        root.style.setProperty('--my', y + 'px');
+        el.style.setProperty('--mx', x + 'px');
+        el.style.setProperty('--my', y + 'px');
         raf = 0;
       });
     });

@@ -3,7 +3,7 @@
   --bg-2: #121215;
   --ink: #f4f3ef;
   --muted: #9b9aa3;
-  --faint: #65656e;
+  --faint: #7e7e87;
   --line: rgba(255,255,255,0.08);
   --line-2: rgba(255,255,255,0.14);
   --serif: "Playfair Display", Georgia, "Times New Roman", serif;
@@ -107,8 +107,9 @@ em { font-style: italic; }
 
 /* ---------- CTA buttons ---------- */
 .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; animation: rise 0.85s var(--ease) 0.2s both; }
-.cta { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 450; padding: 11px 20px; border-radius: 100px; border: 1px solid var(--line-2); color: var(--ink); transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease; }
+.cta { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 450; padding: 11px 20px; border-radius: 100px; border: 1px solid var(--line-2); color: var(--ink); transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.16s var(--ease); }
 .cta:hover { background: rgba(255,255,255,0.08); transform: translateY(-1px); }
+.cta:active { transform: scale(0.98); }
 .cta--primary { background: var(--ink); color: #0a0a0c; border-color: var(--ink); font-weight: 600; }
 .cta--primary:hover { background: #fff; color: #0a0a0c; }
 
@@ -117,11 +118,17 @@ em { font-style: italic; }
 .gallery--page { margin-top: clamp(40px, 6vw, 64px); }
 .gallery > li { list-style: none; }
 .gcard { display: block; animation: rise 0.9s var(--ease) both; }
+.gallery > li:nth-child(1) .gcard { animation-delay: 0.05s; }
+.gallery > li:nth-child(2) .gcard { animation-delay: 0.12s; }
+.gallery > li:nth-child(3) .gcard { animation-delay: 0.19s; }
+.gallery > li:nth-child(4) .gcard { animation-delay: 0.26s; }
+.gallery > li:nth-child(5) .gcard { animation-delay: 0.33s; }
+.gallery > li:nth-child(6) .gcard { animation-delay: 0.40s; }
 .gthumb {
   position: relative; aspect-ratio: 16/10; border-radius: 16px; overflow: hidden;
   border: 1px solid transparent;
   box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 26px 50px -30px rgba(0,0,0,0.7);
-  transition: transform 0.5s var(--ease), border-color 0.45s ease, box-shadow 0.45s ease;
+  transition: transform 0.3s var(--ease), border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .gcard:hover .gthumb { transform: translateY(-5px); border-color: var(--line-2); box-shadow: 0 1px 0 rgba(255,255,255,0.06) inset, 0 40px 70px -32px rgba(0,0,0,0.8); }
 /* hover: gently zoom the whole mockup — frame/bezel + screenshot — inside the card */
@@ -267,6 +274,18 @@ em { font-style: italic; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: 0.001ms !important; }
   html { scroll-behavior: auto; }
+}
+
+/* ---------- cross-page view transitions (opening a project) ---------- */
+@view-transition { navigation: auto; }
+@keyframes vt-out { to { opacity: 0; } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(8px); } }
+@keyframes vt-in-soft { from { opacity: 0; } }
+::view-transition-old(root) { animation: 0.26s var(--ease) both vt-out; }
+::view-transition-new(root) { animation: 0.42s var(--ease) both vt-in; }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root) { animation: 0.18s ease both vt-out; }
+  ::view-transition-new(root) { animation: 0.18s ease both vt-in-soft; }
 }
 
 @media (max-width: 760px) {

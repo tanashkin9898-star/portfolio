@@ -150,6 +150,32 @@ const PROJECTS = {
     caseLink: 'https://www.figma.com/design/0sUkJN807gX6NnXal1fyr1/aiGust---Redesigned-Accountancy-Portal?node-id=0-1',
     next: 'live',
   },
+  premium: {
+    title: 'Premium Account', category: 'Classifieds marketplace · Web', kind: 'desktop',
+    shots: ['assets/work/pa-hero.svg'],
+    lede: 'A large classifieds marketplace’s paid plans were mis-priced against their value. I rebuilt the lineup as a clear value ladder of three tiers — and Premium Account revenue grew roughly 150%.',
+    meta: { Role: 'Product Designer', Timeline: '2025 – 2026', Platform: 'Web', Team: 'PM · Eng · Data · Design' },
+    glance: {
+      problem: 'On a price-vs-functionality map, the paid tiers sat off the line: a “Premium” plan with too few benefits to justify itself, a top tier overpriced for what it delivered, and a free plan generous enough to undercut both.',
+      role: 'Owned the design end to end — the tier structure and value story, per-tier benefits, the upgrade and account-management flows, and the on-listing features (business profiles, priority placement, contact-on-ad). Shaped the packaging alongside product and data.',
+      result: '≈150% growth in Premium Account revenue after the three-tier release, plus higher engagement week-over-week — messages sent +22%.',
+    },
+    contextH: 'The old lineup didn’t line up with value.',
+    contextP: 'Mapping every plan on price against functionality made the problem plain: the old tiers sat off the fair-value line — the middle plan gave too little to be worth paying for, and the top tier cost far more than it delivered. That map became the brief.',
+    contextImg: 'assets/work/pa-ladder.svg',
+    solutionH: 'Rebuild the lineup as a value ladder — one clear step up at each tier.',
+    features: [
+      { t: 'Three tiers, each scoped to one job', d: 'Essential for browsing, Advanced for posting, VIP for running a business. Rather than bundling features by price, I mapped each tier to a job people already had — so the value is legible and the reason to move up is obvious.', note: 'Fewer, sharper tiers mean some edge-case buyers don’t get a perfect fit — the bet was that clarity converts better than coverage.', img: 'assets/work/pa-tiers.svg' },
+      { t: 'Give free a reason to become paid', d: 'The free plan was generous enough to undercut the paid ones. Introducing clear limits on free created a real, felt reason to upgrade — the first lever shipped, ahead of the full restructure.', note: 'Limits frustrate loyal free users before the value lands; they were phased in while watching churn and ad volume.', img: 'assets/work/pa-limits.svg' },
+      { t: 'Advanced — put the poster’s contact on the ad', d: 'Advanced surfaces a phone number and website on the ad, plus a one-click call button on listings. The upgrade stops being an abstract badge and becomes a concrete outcome: more replies.', note: 'Contact-on-ad opened an abuse vector that affects ad quality — a marketplace-health cost weighed against the conversion win.', img: 'assets/work/pa-advanced.svg' },
+      { t: 'VIP — built for businesses', d: 'A dedicated top tier: a customisable business profile, distinct branding across browse pages, and a Priority Lounge that lifts VIP ads to the top of category pages — visibility a business will pay for.', note: 'Priority placement trades some neutrality of the browse page for revenue, so it has to stay a small, clearly-marked share.', img: 'assets/work/pa-vip.svg' },
+    ],
+    impactLine: 'Premium Account revenue grew ≈150% after the three-tier release — and the gains held in engagement, not just billing.',
+    arcLine: 'Shipped as a sequence of bets, not one launch — free limits first (+85%), then the mobile rollout in India (+18%), then the three-tier release (≈150%).',
+    stats: [['≈150%', 'PA revenue growth'], ['~1/5', 'of premium revenue'], ['+22%', 'Messages sent · WoW']],
+    reflection: 'A change this structural takes time to settle — the new limits frustrate some users before the value lands. Putting phone numbers on ads also opened an abuse vector that affects ad quality, so the monetization win has to be weighed against marketplace health. The next work is guardrails there, not more paywalls.',
+    next: 'live',
+  },
 };
 
 function getParam(name) { return new URLSearchParams(window.location.search).get(name); }
@@ -184,6 +210,8 @@ function render(key) {
     ? `<div class="phone-fr">${img(src)}</div>`
     : `<div class="win${crop ? ' win--crop' : ''}">${img(src)}</div>`;
 
+  const slotBox = (label, text) => `<div style="margin-top: 14px; padding: 12px 16px; border: 1px dashed var(--line-2); border-radius: 12px; background: rgba(199,163,255,0.05);"><span style="font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.09em; text-transform: uppercase; color: #c7a3ff; display: block; margin-bottom: 4px;">Slot to fill · ${label}</span><span style="font-size: 13.5px; color: var(--muted); line-height: 1.55;">${text}</span></div>`;
+
   const frows = p.features.map((f, i) => {
     const num = `<span class="frow__num">${String(i + 1).padStart(2, '0')}</span>`;
     if (f.steps) {
@@ -192,8 +220,9 @@ function render(key) {
         <div class="plugin-trio">${f.steps.map((s, j) => `<div class="tool-step"><div class="tool-fr"><img class="zoomable" src="${s.img}" alt="${p.title} plugin" loading="lazy" /></div><div class="tool-cap"><b>${j + 1}</b>${s.label}</div></div>`).join('')}</div>
       </div>`;
     }
+    const note = f.note ? `<p style="margin-top: 13px; font-size: 13.5px; line-height: 1.5; color: var(--faint);"><b style="color: var(--muted); font-weight: 600;">Trade-off</b> — ${f.note}</p>` : '';
     return `<div class="frow">
-      <div class="frow__txt">${num}<h3>${f.t}</h3><p>${f.d}</p></div>
+      <div class="frow__txt">${num}<h3>${f.t}</h3><p>${f.d}</p>${note}</div>
       <div class="frow__media">${media(f.img, f.crop)}</div>
     </div>`;
   }).join('');
@@ -212,6 +241,13 @@ function render(key) {
 
       ${glance}
 
+      ${p.contextH ? `<section class="sec">
+        <p class="sec__kicker">The diagnosis</p>
+        <h2 class="sec__h">${p.contextH}</h2>
+      </section>
+      ${p.contextP ? `<p style="max-width: 62ch; margin: 6px auto 0; text-align: center; text-wrap: balance; color: var(--muted); font-size: clamp(15px, 1.7vw, 18px); line-height: 1.6;">${p.contextP}</p>` : ''}
+      ${p.contextImg ? `<div class="band"><div class="win">${img(p.contextImg)}</div></div>` : ''}` : ''}
+
       <section class="sec">
         <p class="sec__kicker">The solution</p>
         <h2 class="sec__h">${p.solutionH}</h2>
@@ -224,6 +260,12 @@ function render(key) {
         <h2 class="sec__h">${p.impactLine}</h2>
       </section>
       <div class="scards">${stats}</div>
+      ${p.arcLine ? `<p style="max-width: 64ch; margin: 24px auto 0; text-align: center; text-wrap: balance; color: var(--faint); font-size: 14px; line-height: 1.6;">${p.arcLine}</p>` : ''}
+
+      ${p.reflection ? `<section class="sec">
+        <p class="sec__kicker">Reflection</p>
+        <p style="max-width: 60ch; margin: 10px auto 0; text-align: center; text-wrap: balance; color: var(--muted); font-size: clamp(15px, 1.7vw, 18px); line-height: 1.62;">${p.reflection}</p>
+      </section>` : ''}
 
       <nav class="cs__next">
         <span class="lbl">Next project</span>
@@ -235,6 +277,36 @@ function render(key) {
 }
 
 render(getParam('p'));
+
+// ---------- Reveal case-study sections as they scroll into view ----------
+(function csReveal() {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var targets = [].slice.call(document.querySelectorAll('.cs > .glance, .cs > .sec, .cs .frow, .cs > .scards, .cs > p, .cs__next'));
+  targets.forEach(function (t) { t.classList.add('cs-reveal'); });
+  if (reduce) { targets.forEach(function (t) { t.classList.add('in'); }); return; }
+
+  var ticking = false;
+  function check() {
+    ticking = false;
+    var vh = window.innerHeight, trigger = vh * 0.88;
+    for (var i = targets.length - 1; i >= 0; i--) {
+      var rect = targets[i].getBoundingClientRect();
+      // reveal once the top rises into view, or the element is fully visible (bottom-of-page stragglers)
+      if (rect.top < trigger || rect.bottom <= vh) {
+        targets[i].classList.add('in');
+        targets.splice(i, 1);
+      }
+    }
+    if (!targets.length) {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    }
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(check); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  check(); // reveal whatever is already in view on load
+})();
 
 // ---------- Lightbox: click any screenshot to enlarge ----------
 (function () {

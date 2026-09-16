@@ -119,3 +119,16 @@
   transition: background 0.25s ease, transform 0.25s ease; }
 .lb__close:hover { background: rgba(255,255,255,0.14); transform: scale(1.06); }
 body.lb-open { overflow: hidden; }
+
+/* ---------- case-study entrance & scroll motion ---------- */
+@keyframes cs-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.cs__hero > * { animation: cs-rise 0.7s var(--ease) both; }
+.cs__hero > *:nth-child(1) { animation-delay: 0.03s; }
+.cs__hero > *:nth-child(2) { animation-delay: 0.09s; }
+.cs__hero > *:nth-child(3) { animation-delay: 0.15s; }
+.cs__hero > *:nth-child(4) { animation-delay: 0.21s; }
+.cs__hero > *:nth-child(5) { animation-delay: 0.27s; }
+.cs__hero + .band { animation: cs-rise 0.8s var(--ease) 0.3s both; }
+
+.cs-reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+.cs-reveal.in { opacity: 1; transform: none; }
